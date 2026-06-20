@@ -13,15 +13,17 @@
             <h1>Чат</h1>
         </header>
         <main>
-            <ul id="messages">
+            <ul class="messages-list" id="messages">
 
             </ul>
         </main>
         <footer>
-            <input type="text" id="message-input" placeholder="Введите сообщение...">
-            <button id="send-btn">
-                Отправить
-            </button>
+            <form id="chat-form">
+                <input autocomplete="off" type="text" id="message-input" placeholder="Введите сообщение...">
+                <button type="submit" id="send-btn" disabled>
+                    Отправить
+                </button>
+            </form>
         </footer>
     </div>
     <script src="js/script.js"></script>
