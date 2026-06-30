@@ -10,6 +10,20 @@ function sendMessage(text) {
     messagesList.appendChild(li);
     messageInput.value = "";
     sendBtn.disabled = true;
+    botReply();
+    scrollToBottom();
+}
+
+function botReply() {
+    const li = document.createElement('li');
+    li.textContent = "Привет! Я бот 🤖";
+    li.classList.add('message-bot');
+    messagesList.appendChild(li);
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    messagesList.scrollTop = messagesList.scrollHeight;
 }
 
 messageInput.addEventListener("input", (e) => {

@@ -41,6 +41,7 @@ header h1{
 main {
     display: flex;
     flex: 1;
+    overflow: hidden;
     padding: 25px;
 }
 
