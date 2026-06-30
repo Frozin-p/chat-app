@@ -11,7 +11,6 @@ function sendMessage(text) {
     messageInput.value = "";
     sendBtn.disabled = true;
     botReply();
-    scrollToBottom();
 }
 
 function botReply() {
@@ -19,10 +18,6 @@ function botReply() {
     li.textContent = "Привет! Я бот 🤖";
     li.classList.add('message-bot');
     messagesList.appendChild(li);
-    scrollToBottom();
-}
-
-function scrollToBottom() {
     messagesList.scrollTop = messagesList.scrollHeight;
 }
 
