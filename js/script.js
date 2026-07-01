@@ -3,6 +3,7 @@ const messageInput = document.getElementById("message-input");
 const sendBtn = document.getElementById("send-btn");
 const chatForm = document.getElementById("chat-form");
 
+
 function getCurrentTime() {
     const now = new Date();
     const hours = now.getHours();
@@ -12,18 +13,29 @@ function getCurrentTime() {
 
 function sendMessage(text) {
     const li = document.createElement('li');
-    const textSpan = document.createElement('span');
-    const timeSpan = document.createElement('span');
+    li.classList.add('message-user');
 
+    const avatar = document.createElement("img");
+    avatar.src = "https://i.pravatar.cc/40?img=7";
+    avatar.classList.add('avatar');
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-bubble");
+
+    const textSpan = document.createElement('span');
     textSpan.textContent = text;
     textSpan.classList.add('message-text');
 
+    const timeSpan = document.createElement('span');
     timeSpan.textContent = getCurrentTime();
     timeSpan.classList.add('message-time');
 
-    li.classList.add('message-user');
-    li.appendChild(textSpan);
-    li.appendChild(timeSpan);
+    bubble.appendChild(textSpan);
+    bubble.appendChild(timeSpan);
+
+    li.appendChild(avatar);
+    li.appendChild(bubble);
+
     messagesList.appendChild(li);
     messageInput.value = "";
     sendBtn.disabled = true;
@@ -32,18 +44,29 @@ function sendMessage(text) {
 
 function botReply() {
     const li = document.createElement('li');
-    const textSpan = document.createElement('span');
-    const timeSpan = document.createElement('span');
+    li.classList.add('message-bot');
 
+    const avatar = document.createElement("img");
+    avatar.src = "https://i.pravatar.cc/40?img=3";
+    avatar.classList.add('avatar');
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-bubble");
+
+    const textSpan = document.createElement('span');
     textSpan.textContent = "Привет! Я бот 🤖";
     textSpan.classList.add('message-text');
 
+    const timeSpan = document.createElement('span');
     timeSpan.textContent = getCurrentTime();
     timeSpan.classList.add('message-time');
 
-    li.classList.add('message-bot');
-    li.appendChild(textSpan);
-    li.appendChild(timeSpan);
+    bubble.appendChild(textSpan);
+    bubble.appendChild(timeSpan);
+
+    li.appendChild(avatar);
+    li.appendChild(bubble);
+
     messagesList.appendChild(li);
     messagesList.scrollTop = messagesList.scrollHeight;
 }

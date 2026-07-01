@@ -45,6 +45,13 @@ main {
     padding: 25px;
 }
 
+.avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+}
+
 .messages-list {
     display: flex;
     width: 100%;
@@ -57,36 +64,45 @@ main {
     overflow-y: auto;
 }
 
-.message-user {
-    align-self: flex-end;
-    background-color: #e3f2fd;
-    border-radius: 10px;
-    padding: 5px;
+.message-user, .message-bot {
     max-width: 75%;
     word-wrap: break-word;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    min-width: 50px;
+    align-items: flex-end;
+}
+
+.message-user {
+    align-self: flex-end;
 }
 
 .message-bot {
     align-self: flex-start;
-    background-color: #ffffff;
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 5px;
-    max-width: 75%;
-    word-wrap: break-word;
-}
-
-.message-user, .message-bot {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    min-width: 50px;
 }
 
 .message-time {
     font-size: 12px;
     color: gray;
     align-self: flex-end;
+}
+
+.message-bubble {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.message-user .message-bubble {
+    background-color: #e3f2fd;
+}
+
+.message-bot .message-bubble {
+    background-color: #ececec;
 }
 
 footer {
