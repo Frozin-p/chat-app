@@ -31,6 +31,12 @@ const botReplies = [
     "Хороший вопрос, кстати."
 ];
 
+let messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+function saveMessages() {
+    localStorage.setItem('messages', JSON.stringify(messages));
+}
+
 function getCurrentTime() {
     const now = new Date();
     const hours = now.getHours();
@@ -46,68 +52,79 @@ function removeTypingIndicator() {
     document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('visible'));
 }
 
-function sendMessage(text) {
+function createMessageElement(type, text, time) {
     const li = document.createElement('li');
-    li.classList.add('message-user');
+    if (type === 'user') {
+        li.classList.add('message-user');
+    }
+    else {
+        li.classList.add('message-bot');
+    }
 
-    const avatar = document.createElement("img");
-    avatar.src = "https://i.pravatar.cc/40?img=7";
+    const avatar = document.createElement('img');
+    if (type === 'user') {
+        avatar.src = "https://i.pravatar.cc/40?img=7";
+    }
+    else {
+        avatar.src = "https://i.pravatar.cc/40?img=3";
+    }
     avatar.classList.add('avatar');
 
-    const bubble = document.createElement("div");
-    bubble.classList.add("message-bubble");
+    const bubble = document.createElement('div');
+    bubble.classList.add('message-bubble');
 
     const textSpan = document.createElement('span');
     textSpan.textContent = text;
     textSpan.classList.add('message-text');
 
     const timeSpan = document.createElement('span');
-    timeSpan.textContent = getCurrentTime();
+    timeSpan.textContent = time;
     timeSpan.classList.add('message-time');
 
     bubble.appendChild(textSpan);
     bubble.appendChild(timeSpan);
-
     li.appendChild(avatar);
     li.appendChild(bubble);
+
+    return li;
+}
+
+function sendMessage(text) {
+    const time = getCurrentTime();
+    const li = createMessageElement('user', text, time);
 
     messagesList.appendChild(li);
     messagesList.scrollTop = messagesList.scrollHeight;
     messageInput.value = "";
     sendBtn.disabled = true;
+
     showTypingIndicator();
     setTimeout(() => {
         removeTypingIndicator();
         botReply();
     }, 1500);
+
+    messages.push({type: 'user', text: text, time: time});
+    saveMessages();
 }
 
 function botReply() {
-    const li = document.createElement('li');
-    li.classList.add('message-bot');
-
-    const avatar = document.createElement("img");
-    avatar.src = "https://i.pravatar.cc/40?img=3";
-    avatar.classList.add('avatar');
-
-    const bubble = document.createElement("div");
-    bubble.classList.add("message-bubble");
-
-    const textSpan = document.createElement('span');
-    textSpan.textContent = botReplies[Math.floor(Math.random() * botReplies.length)];
-    textSpan.classList.add('message-text');
-
-    const timeSpan = document.createElement('span');
-    timeSpan.textContent = getCurrentTime();
-    timeSpan.classList.add('message-time');
-
-    bubble.appendChild(textSpan);
-    bubble.appendChild(timeSpan);
-
-    li.appendChild(avatar);
-    li.appendChild(bubble);
+    const time = getCurrentTime();
+    const botText = botReplies[Math.floor(Math.random() * botReplies.length)];
+    const li = createMessageElement('bot', botText, time);
 
     messagesList.appendChild(li);
+    messagesList.scrollTop = messagesList.scrollHeight;
+
+    messages.push({ type: 'bot', text: botText, time: time});
+    saveMessages();
+}
+
+function renderMessages() {
+    messages.forEach(msg => {
+        const li = createMessageElement(msg.type, msg.text, msg.time);
+        messagesList.appendChild(li);
+    });
     messagesList.scrollTop = messagesList.scrollHeight;
 }
 
@@ -135,3 +152,5 @@ themeToggle.addEventListener("click", () => {
     icon.classList.toggle("fa-moon");
     icon.classList.toggle("fa-sun");
 });
+
+renderMessages();
