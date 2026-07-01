@@ -134,13 +134,22 @@ footer input:focus {
 }
 
 footer button {
-    background-color: white;
-    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    color: white;
+    background-color: #e4b142;
+    border: none;
+    cursor: pointer;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 50%;
 }
 
 footer button:hover {
-    background-color: transparent;
+    background-color: #e49f07;
     transition: background-color 0.3s ease;
+}
+
+footer button:disabled {
+    background-color: #e1c68d;
+    cursor: default;
 }
