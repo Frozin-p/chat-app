@@ -3,12 +3,47 @@ const messageInput = document.getElementById("message-input");
 const sendBtn = document.getElementById("send-btn");
 const chatForm = document.getElementById("chat-form");
 
+const botReplies = [
+    "Привет! Чем могу помочь?",
+    "Интересно, расскажи подробнее!",
+    "Понял тебя, продолжай.",
+    "Хм, дай подумаю...",
+    "Звучит разумно!",
+    "Не уверен что понял, можешь повторить?",
+    "Отличная идея!",
+    "Я с тобой полностью согласен.",
+    "Это сложный вопрос...",
+    "Давай разберёмся вместе.",
+    "Ты уверен в этом?",
+    "Хорошо, запомнил.",
+    "Мне нужно больше информации.",
+    "Всё понятно, спасибо!",
+    "Интересная точка зрения.",
+    "Не могу с этим не согласиться.",
+    "Попробуй ещё раз.",
+    "Это именно то, что я думал!",
+    "Подожди, я обрабатываю запрос...",
+    "Окей, что дальше?",
+    "Ты задаёшь правильные вопросы.",
+    "Дай мне секунду...",
+    "Я не совсем понимаю, объясни иначе.",
+    "Звучит как план!",
+    "Хороший вопрос, кстати."
+];
 
 function getCurrentTime() {
     const now = new Date();
     const hours = now.getHours();
     const minutes = String(now.getMinutes()).padStart(2, "0");
     return (`${hours}:${minutes}`);
+}
+
+function showTypingIndicator() {
+    document.querySelectorAll('.dot').forEach(dot => dot.classList.add('visible'));
+}
+
+function removeTypingIndicator() {
+    document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('visible'));
 }
 
 function sendMessage(text) {
@@ -39,7 +74,11 @@ function sendMessage(text) {
     messagesList.appendChild(li);
     messageInput.value = "";
     sendBtn.disabled = true;
-    botReply();
+    showTypingIndicator();
+    setTimeout(() => {
+        removeTypingIndicator();
+        botReply();
+    }, 1500);
 }
 
 function botReply() {
@@ -54,7 +93,7 @@ function botReply() {
     bubble.classList.add("message-bubble");
 
     const textSpan = document.createElement('span');
-    textSpan.textContent = "Привет! Я бот 🤖";
+    textSpan.textContent = botReplies[Math.floor(Math.random() * botReplies.length)];
     textSpan.classList.add('message-text');
 
     const timeSpan = document.createElement('span');
@@ -86,5 +125,3 @@ chatForm.addEventListener("submit", (e) => {
     const text = messageInput.value.trim();
     sendMessage(text);
 })
-
-
