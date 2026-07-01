@@ -57,11 +57,6 @@ main {
     overflow-y: auto;
 }
 
-.message {
-    display: flex;
-
-}
-
 .message-user {
     align-self: flex-end;
     background-color: #e3f2fd;
@@ -79,6 +74,19 @@ main {
     padding: 5px;
     max-width: 75%;
     word-wrap: break-word;
+}
+
+.message-user, .message-bot {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 50px;
+}
+
+.message-time {
+    font-size: 12px;
+    color: gray;
+    align-self: flex-end;
 }
 
 footer {
