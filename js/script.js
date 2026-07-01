@@ -72,6 +72,7 @@ function sendMessage(text) {
     li.appendChild(bubble);
 
     messagesList.appendChild(li);
+    messagesList.scrollTop = messagesList.scrollHeight;
     messageInput.value = "";
     sendBtn.disabled = true;
     showTypingIndicator();
@@ -125,3 +126,12 @@ chatForm.addEventListener("submit", (e) => {
     const text = messageInput.value.trim();
     sendMessage(text);
 })
+
+const themeToggle = document.getElementById("theme-toggle");
+
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const icon = themeToggle.querySelector("i");
+    icon.classList.toggle("fa-moon");
+    icon.classList.toggle("fa-sun");
+});
