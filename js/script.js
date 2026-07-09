@@ -128,6 +128,14 @@ function renderMessages() {
     messagesList.scrollTop = messagesList.scrollHeight;
 }
 
+function clearChat() {
+    while (messagesList.firstChild) {
+        messagesList.removeChild(messagesList.firstChild);
+    }
+    messages = [];
+    saveMessages();
+}
+
 messageInput.addEventListener("input", (e) => {
     if (messageInput.value.trim() === "") {
         sendBtn.disabled = true;
@@ -151,6 +159,15 @@ themeToggle.addEventListener("click", () => {
     const icon = themeToggle.querySelector("i");
     icon.classList.toggle("fa-moon");
     icon.classList.toggle("fa-sun");
+});
+
+const clearChatBtn = document.getElementById("clear-chat-button");
+
+clearChatBtn.addEventListener("click", () => {
+    if (confirm("Очистить сообщения в чате?")) {
+        clearChat();
+        alert("Чат очищен!");
+    }
 });
 
 renderMessages();
