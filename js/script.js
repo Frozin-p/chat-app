@@ -120,7 +120,22 @@ function botReply() {
     saveMessages();
 }
 
+let username = localStorage.getItem('username');
+
+function setUsername() {
+    if (localStorage.getItem('username') === null) {
+        let userSettingName = prompt("Как вас зовут?");
+        if ((userSettingName === "") || (userSettingName === null)){
+            localStorage.setItem('username', 'Гость');
+        } else {
+            localStorage.setItem('username', userSettingName);
+        }
+    }
+    username = localStorage.getItem('username');
+}
+
 function renderMessages() {
+    setUsername();
     messages.forEach(msg => {
         const li = createMessageElement(msg.type, msg.text, msg.time);
         messagesList.appendChild(li);
