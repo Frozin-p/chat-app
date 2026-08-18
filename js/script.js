@@ -73,6 +73,15 @@ function createMessageElement(type, text, time) {
     const bubble = document.createElement('div');
     bubble.classList.add('message-bubble');
 
+    const senderName = document.createElement('div');
+    senderName.classList.add('sender-name');
+    if (type === 'user') {
+        senderName.textContent = username;
+    }
+    else {
+        senderName.textContent = "Бот";
+    }
+
     const textSpan = document.createElement('span');
     textSpan.textContent = text;
     textSpan.classList.add('message-text');
@@ -81,6 +90,7 @@ function createMessageElement(type, text, time) {
     timeSpan.textContent = time;
     timeSpan.classList.add('message-time');
 
+    bubble.appendChild(senderName)
     bubble.appendChild(textSpan);
     bubble.appendChild(timeSpan);
     li.appendChild(avatar);
